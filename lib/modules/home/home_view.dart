@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_tracker/modules/home/home_controller.dart';
+import 'package:movie_tracker/modules/home/home_state.dart';
 
-import 'home_bloc.dart';
+import 'home_controller.dart';
 import 'home_repo.dart';
 
 class HomeView extends StatefulWidget {
@@ -16,7 +16,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      BlocProvider.of<HomeBloc>(_context!).getMovies();
+      BlocProvider.of<HomeController>(_context!).getMovies();
     });
   }
 
@@ -24,7 +24,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (c) {
-        return HomeBloc(HomeService());
+        return HomeController(HomeService());
       },
       child: buildScaffold(context),
     );
@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
         appBar: AppBar(
           title: Text("Most Populer Movies"),
         ),
-        body: BlocConsumer<HomeBloc, HomeController>(
+        body: BlocConsumer<HomeController, HomeStates>(
           listener: (c, state) {
             if (state is HomeError) {
               ScaffoldMessenger.of(context)
@@ -56,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       );
 
-  Text buildError(HomeController state) {
+  Text buildError(HomeStates state) {
     final error = state as HomeError;
     return Text(error.message);
   }
@@ -98,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
     return FloatingActionButton(
       child: Icon(Icons.clear_all),
       onPressed: () {
-        BlocProvider.of<HomeBloc>(_context!).getMovies();
+        BlocProvider.of<HomeController>(_context!).getMovies();
       },
     );
   }

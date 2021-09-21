@@ -1,35 +1,21 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_tracker/modules/home/home_model.dart';
+import 'home_repo.dart';
+import 'home_state.dart';
 
-abstract class HomeController {
-  const HomeController();
-}
+class HomeController extends Cubit<HomeStates> {
+  final HomeRepository homeRepository;
+  HomeController(this.homeRepository) : super(HomeInitial());
+  MovieModel? movies;
 
-class HomeInitial extends HomeController {
-  const HomeInitial();
-}
-
-class HomeLoading extends HomeController {
-  const HomeLoading();
-}
-
-class HomeCompleted extends HomeController {
-  final List<Result> response;
-
-  const HomeCompleted(this.response);
-
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is HomeCompleted && listEquals(o.response, response);
+  Future<void> getMovies() async {
+    try {
+      emit(HomeLoading());
+      await Future.delayed(Duration(milliseconds: 500));
+      movies = await homeRepository.getMovies();
+      emit(HomeCompleted(movies!.results!));
+    } on NetworkError catch (e) {
+      emit(HomeError(e.message));
+    }
   }
-
-  @override
-  int get hashCode => response.hashCode;
-}
-
-class HomeError extends HomeController {
-  final String message;
-  const HomeError(this.message);
 }
