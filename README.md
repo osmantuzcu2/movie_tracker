@@ -25,7 +25,6 @@ ApiClient work with retrofit and json_serializable
 
 ## How to build
     1- Flutter v.2.X must be installed and enviroment must be ready. See more : https://flutter.dev/docs/get-started/install
-    3- Create your own google-services.json file. For more information : https://firebase.flutter.dev/docs/database/overview/
     2- flutter pub get
     3- flutter run
 
@@ -37,5 +36,8 @@ Movie tracker connects to TMDB with Api_key. If you want to change this, you sho
 
     @GET(
       "/movie?sort_by=popularity.desc&api_key=d4706eb28719d30f2911e24ba47428d0")
-      
+You should use this command after edit apikey. Because Retrofir generator must run again.
+    
+    flutter pub run build_runner build
+    
 https://user-images.githubusercontent.com/29891172/134211467-d6fbb0cf-d8eb-4272-8871-f0f16c7057d1.mp4
