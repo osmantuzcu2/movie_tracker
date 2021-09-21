@@ -29,7 +29,7 @@ ApiClient work with retrofit and json_serializable
     3- flutter run
 
 ## Api_key
-    Movie tracker connects to TMDB with Api_key. If you want to change this, you should edit this line in lib> modules> home> api_client.dart.
+Movie tracker connects to TMDB with Api_key. If you want to change this, you should edit this line in lib> modules> home> api_client.dart.
 
     @GET(
       "/movie?sort_by=popularity.desc&api_key=d4706eb28719d30f2911e24ba47428d0")
