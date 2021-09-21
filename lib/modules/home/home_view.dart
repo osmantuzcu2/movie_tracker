@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_tracker/modules/home/home_state.dart';
 
 import 'home_controller.dart';
-import 'home_repo.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -24,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (c) {
-        return HomeController(HomeService());
+        return HomeController();
       },
       child: buildScaffold(context),
     );
