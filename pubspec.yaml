@@ -12,28 +12,31 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^7.2.0
-  http: ^0.13.3
-  retrofit: any
-  dio: any
-  built_value: any
-  json_annotation: any
+  retrofit: ^2.0.1
+  dio: ^4.0.0
+  built_value: ^8.1.2
+  json_annotation: ^4.0.1
+  get: ^4.3.8
+  flutter_svg: ^0.22.0
 
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator: any
-  build_runner: any
-  json_serializable: any
-  built_value_generator: any
+  retrofit_generator: ^2.0.1
+  build_runner: ^2.1.2
+  json_serializable: ^4.1.4
+  built_value_generator: ^8.1.1
 
 flutter:
 
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
   fonts:
     - family: Open Sans
       fonts:

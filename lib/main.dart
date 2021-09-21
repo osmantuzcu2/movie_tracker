@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'modules/home/home_view.dart';
 
 void main() {
@@ -8,11 +9,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Movie Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: HomeView(),
     );
   }
