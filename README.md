@@ -4,6 +4,7 @@ MovieTracker is a movie tracking application developed with flutter. Users can s
 
 <img src="https://github.com/osmantuzcu2/movie_tracker/blob/retrofit/assets/images/screenshot.jpg?raw=true">
 
+
 ## Dependencies
   flutter_bloc: for state management
   retrofit: for structure
@@ -28,8 +29,13 @@ ApiClient work with retrofit and json_serializable
     2- flutter pub get
     3- flutter run
 
+
+
+
 ## Api_key
 Movie tracker connects to TMDB with Api_key. If you want to change this, you should edit this line in lib> modules> home> api_client.dart.
 
     @GET(
       "/movie?sort_by=popularity.desc&api_key=d4706eb28719d30f2911e24ba47428d0")
+      
+https://user-images.githubusercontent.com/29891172/134211467-d6fbb0cf-d8eb-4272-8871-f0f16c7057d1.mp4
