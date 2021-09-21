@@ -6,13 +6,13 @@ MovieTracker is a movie tracking application developed with flutter. Users can s
 
 
 ## Dependencies
-  flutter_bloc: for state management
-  retrofit: for structure
-  dio:  http client
-  built_value: retrofit dependecy
-  json_annotation: for json serialization
-  get: for routes
-  flutter_svg: for svg pictures
+  flutter_bloc: for state management, 
+  retrofit: for structure,  
+  dio:  http client,  
+  built_value: retrofit dependecy,  
+  json_annotation: for json serialization,  
+  get: for routes,  
+  flutter_svg: for svg pictures 
 
 ## Folder Structure
 Each module has a View, State, Controller, ApiClient dart file.This way, you don't have to navigate much outside of the folder you're working in.
