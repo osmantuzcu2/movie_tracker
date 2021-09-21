@@ -2,7 +2,7 @@
 
 MovieTracker is a movie tracking application developed with flutter. Users can see most popular movies.
 
-<img src="https://raw.githubusercontent.com/osmantuzcu2/movie_tracker/main/assets/images/screenshot.jpg">
+<img src="https://github.com/osmantuzcu2/movie_tracker/blob/retrofit/assets/images/screenshot.jpg?raw=true">
 
 ## Dependencies
   flutter_bloc: for state management
