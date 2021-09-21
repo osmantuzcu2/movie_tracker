@@ -1,9 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:movie_tracker/modules/details/details.dart';
 import 'package:movie_tracker/modules/home/home_state.dart';
+import 'package:get/get.dart';
 
+import '../../helper.dart';
 import 'home_controller.dart';
-import 'home_repo.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -24,16 +29,14 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (c) {
-        return HomeController(HomeService());
+        return HomeController();
       },
       child: buildScaffold(context),
     );
   }
 
   Scaffold buildScaffold(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Most Populer Movies"),
-        ),
+        appBar: buildAppBar(),
         body: BlocConsumer<HomeController, HomeStates>(
           listener: (c, state) {
             if (state is HomeError) {
@@ -48,58 +51,122 @@ class _HomeViewState extends State<HomeView> {
             } else if (state is HomeLoading) {
               return buildCenterLoading();
             } else if (state is HomeCompleted) {
-              return buildListViewCats(state, _context!);
+              return buildListViewMovies(state, _context!);
             } else {
               return buildError(state);
             }
           },
         ),
       );
-
-  Text buildError(HomeStates state) {
-    final error = state as HomeError;
-    return Text(error.message);
-  }
-
-  Stack buildListViewCats(HomeCompleted state, BuildContext context) {
-    return Stack(
-      children: [
-        ListView.builder(
-          itemBuilder: (context, index) => ListTile(
-            title: Image.network(
-                "https://www.themoviedb.org/t/p/w220_and_h330_face" +
-                    state.response[index].posterPath!),
-            subtitle: Text(state.response[index].title!),
-          ),
-          itemCount: state.response.length,
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leading: IconButton(
+        padding: EdgeInsets.only(left: 20),
+        icon: SvgPicture.asset("assets/icons/menu.svg"),
+        onPressed: () {},
+      ),
+      title: Text(
+        "Most Popular Movies",
+        style: t2(),
+      ),
+      actions: <Widget>[
+        IconButton(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          icon: SvgPicture.asset("assets/icons/search.svg"),
+          onPressed: () {},
         ),
       ],
     );
   }
+}
 
-  Center buildCenterLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
+Text buildError(HomeStates state) {
+  final error = state as HomeError;
+  return Text(error.message);
+}
 
-  Center buildCenterInitialChild(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Text("Thanks for your patience..."),
-          buildFloatingActionButtonCall(context)
-        ],
+Stack buildListViewMovies(HomeCompleted state, BuildContext context) {
+  return Stack(
+    children: [
+      Container(
+        height: screenH(1, context),
+        width: screenW(1, context),
+        child: Image.network(
+          "https://www.themoviedb.org/t/p/w220_and_h330_face" +
+              state.response[Random().nextInt(state.response.length)]
+                  .backdropPath!,
+          fit: BoxFit.cover,
+        ),
       ),
-    );
-  }
+      Container(
+        alignment: Alignment.bottomCenter,
+        margin: EdgeInsets.only(top: screenH(0.2, context)),
+        height: screenH(0.5, context),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {
+              Get.to(Details(
+                r: state.response[index],
+              ));
+            },
+            child: Container(
+              margin: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(15)),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                    child: Image.network(
+                        "https://www.themoviedb.org/t/p/w220_and_h330_face" +
+                            state.response[index].posterPath!),
+                  ),
+                  Text(
+                    state.response[index].title!.substring(
+                        0,
+                        state.response[index].title!.length > 18
+                            ? 18
+                            : state.response[index].title!.length),
+                    style: t2(),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        state.response[index].releaseDate!.year.toString(),
+                        maxLines: 2,
+                        style: t1(),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          itemCount: state.response.length,
+        ),
+      ),
+    ],
+  );
+}
 
-  FloatingActionButton buildFloatingActionButtonCall(BuildContext context) {
-    return FloatingActionButton(
-      child: Icon(Icons.clear_all),
-      onPressed: () {
-        BlocProvider.of<HomeController>(_context!).getMovies();
-      },
-    );
-  }
+Center buildCenterLoading() {
+  return Center(
+    child: CircularProgressIndicator(),
+  );
+}
+
+Center buildCenterInitialChild(BuildContext context) {
+  return Center(
+    child: Column(
+      children: [
+        Text("Thanks for your patience..."),
+      ],
+    ),
+  );
 }

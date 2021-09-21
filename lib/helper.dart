@@ -42,10 +42,21 @@ final shadowColor = HexColor("#BBBBBB");
 final shadowColorGreen = HexColor("#72C875");
 final borderColor = HexColor("#E1E1E1");
 
-///Text Styles
+///Shadow
+const kDefaultShadow = BoxShadow(
+  offset: Offset(0, 1),
+  blurRadius: 15,
+  color: Colors.black12,
+);
 
+///Space Widget
+Widget space(double x) {
+  return Padding(padding: EdgeInsets.all(x));
+}
+
+///Text Styles
 TextStyle h3() => TextStyle(
-    color: darkBlue,
+    color: Colors.black87,
     fontSize: 20,
     fontFamily: "Open Sans",
     fontWeight: FontWeight.bold);
@@ -61,12 +72,17 @@ TextStyle t2() => TextStyle(
     fontWeight: FontWeight.normal);
 TextStyle buttonText() => TextStyle(
     color: lightColor,
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: "Open Sans",
     fontWeight: FontWeight.bold);
 TextStyle t1() => TextStyle(
-    color: darkGrey,
-    fontSize: 16,
+    color: darkBlue,
+    fontSize: 14,
+    fontFamily: "Open Sans",
+    fontWeight: FontWeight.normal);
+TextStyle t3() => TextStyle(
+    color: shadowColor,
+    fontSize: 12,
     fontFamily: "Open Sans",
     fontWeight: FontWeight.normal);
 TextStyle inputBoxLabelFilled() => TextStyle(

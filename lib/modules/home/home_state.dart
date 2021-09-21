@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:movie_tracker/modules/home/home_model.dart';
+
+import 'api_client.dart';
 
 abstract class HomeStates {
   const HomeStates();
